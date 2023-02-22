@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="0.837" tests="1" failures="0">
+  <testsuite name="Root Suite" timestamp="2023-02-22T13:14:48" tests="0" file="cypress\e2e\apiTest\putrequest.cy.js" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Update the user using put request in cypress" timestamp="2023-02-22T13:14:48" tests="1" time="0.667" failures="0">
+    <testcase name="Update the user using put request in cypress update user by id" time="0.779" classname="update user by id">
+    </testcase>
+  </testsuite>
+</testsuites>

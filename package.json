@@ -1,0 +1,33 @@
+{
+   "name": "spendkey-project",
+   "version": "1.0.0",
+   "description": "Automation Testcases for spendkey",
+   "main": "index.js",
+   "scripts": {
+      "test": "npx cypress open",
+      "cypress-open": "npx cypress open --config baseUrl=https://demo.spendkey.app/dashboard",
+      "chrome:test": "npx cypress run --config baseUrl=https://demo.spendkey.app/dashboard --browser chrome --headed",
+      "merge-reports": "npx cypress run mochawesome-merge ./cypress/reports/html/.jsons/*.json | out-file -encoding ascii ./report1.json",
+      "api-test-xml": "npx cypress run --spec ./cypress/e2e/apiTest/*.cy.js --reporter junit",
+      "ui-test": "npx cypress run --spec ./cypress/e2e/uiTest/*.cy.js",
+      "api-test-html": "npx cypress run --spec ./cypress/e2e/apiTest/*.cy.js",
+      "report": "concurrently \"npm run api-test-xml\" \"npm run api-test-html\""
+   },
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/TestrigTechnologies/Cypress-POC.git"
+   },
+   "author": "Testrig",
+   "license": "ISC",
+   "dependencies": {
+      "concurrently": "^7.6.0",
+      "cypress": "^12.3.0",
+      "cypress-plugin-api": "^2.9.0"
+   },
+   "devDependencies": {
+      "cypress-json-results": "^1.2.1",
+      "cypress-junit-reporter": "^1.3.1",
+      "cypress-mochawesome-reporter": "^3.3.0",
+      "cypress-xpath": "^2.0.1"
+   }
+}
