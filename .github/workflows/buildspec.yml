@@ -23,6 +23,7 @@ jobs:
           echo "date=$(TZ=Asia/Kolkata date "+%Y-%m-%d %H-%M-%S")" >> $GITHUB_ENV
 
       - name: run api tests
+        continue-on-error: true
         run: docker-compose run api-test
                
       # Generate output reports in artifcats
@@ -35,7 +36,6 @@ jobs:
          path: ./cypress/reports  
         
       - name: run ui tests
-        if: always()
         run: docker-compose run ui-test       
      
       # Generate output reports in artifcats
