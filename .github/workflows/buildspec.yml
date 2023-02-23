@@ -18,7 +18,7 @@ jobs:
         run: docker build -t spendkey-cypress .
 
       - name: run api tests
-        run: docker-compose run api-test
+        run: docker-compose run api-test-html
         
       - name: Set Time
         run: |
