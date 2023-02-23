@@ -2,9 +2,9 @@ name: Cypress Spenkey
 
 on: 
  push:
-   branches: ["dev"]
+   branches: ["main"]
  pull_request:
-   branches: ["dev"]
+   branches: ["main"]
 
 jobs:
   cypress-run:
