@@ -1,5 +1,5 @@
 ///<reference types ="cypress"/>
-import { utils } from "../../support/utilities/utils";
+import { utils } from "../../support/Utilities/Utils";
 
 before(()=>{
     cy.fixture("ErrorMessages").then(function (message) {
