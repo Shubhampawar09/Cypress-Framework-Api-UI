@@ -35,6 +35,7 @@ jobs:
          path: ./cypress/reports  
         
       - name: run ui tests
+        if: always()
         run: docker-compose run ui-test       
      
       # Generate output reports in artifcats
