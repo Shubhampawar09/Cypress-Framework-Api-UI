@@ -4,28 +4,55 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 trigger:
-- dev
+  branches:
+    include:
+    - refs/heads/main
+resources:
+  repositories:
+  - repository: self
+    type: git
+    ref: refs/heads/main
+jobs:
+- job: Job_1
+  displayName: Agent job 1
+  pool:
+    vmImage: windows-latest
+  steps:
+  - checkout: self
+    fetchTags: false
+  - task: NodeTool@0
+    displayName: 'Use Node '
+    inputs:
+      versionSpec: 14.x
+  - task: Npm@1
+    displayName: Install Npm Dependencies
+    inputs:
+      verbose: false
 
-pool:
-  vmImage: ubuntu-latest
+  - task: Docker@2
+    inputs:
+      command: 'build'
+      Dockerfile: '**/Dockerfile'
+      arguments: 'docker build -t Spendkey_Cypress .'
 
-steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
+  - task: DockerCompose@0
+    inputs:
+      containerregistrytype: 'Azure Container Registry'
+      dockerComposeFile: '**/docker-compose.yml'
+      action: 'Run a Docker Compose command'
+      dockerComposeCommand: 'docker-compose run api-test'
+  - task: Npm@1
+    displayName: Execute Script
+    condition: succeededOrFailed()
+    inputs:
+      command: custom
+      verbose: false
+      customCommand: run api-test
 
-- script: |
-    npm install
-    npm run build
-  displayName: 'npm install and build'
-
-- script:  |
-    docker build -t Spendkey_Cypress .
-  displayName: Build docker image
-
-- script: |
-    docker-compose run api-test
-  displayName: Run api test
+  - task: PublishTestResults@2
+    displayName: 'Publish Test Results '
+    inputs:
+      testResultsFiles: '**/reports/results-*.xml'
+...
 
 
