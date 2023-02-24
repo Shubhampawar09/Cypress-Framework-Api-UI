@@ -19,3 +19,13 @@ steps:
     npm install
     npm run build
   displayName: 'npm install and build'
+
+- script:  |
+    docker build -t Spendkey_Cypress .
+  displayName: Build docker image
+
+- script: |
+    docker-compose run api-test
+  displayName: Run api test
+
+
