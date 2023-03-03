@@ -33,12 +33,13 @@ steps:
 - task: PublishTestResults@2
   displayName: 'Publish Test Results '
   inputs:
+    testRunner: Junit
     testResultsFiles: '**/results.xml'
     searchFolder: '$(System.DefaultWorkingDirectory)/cypress/reports'
     mergeTestResults: true
     failTaskOnFailedTests: true
 - task: PublishBuildArtifacts@1
-  inputs:
+  inputs: 
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
