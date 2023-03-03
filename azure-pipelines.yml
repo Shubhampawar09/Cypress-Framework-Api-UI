@@ -37,4 +37,8 @@ steps:
     searchFolder: '$(System.DefaultWorkingDirectory)/cypress/reports'
     mergeTestResults: true
     failTaskOnFailedTests: true
-  condition: succeededOrFailed()
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
