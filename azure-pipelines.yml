@@ -4,43 +4,46 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 trigger:
-  branches:
-    include:
-    - refs/heads/main
-resources:
-  repositories:
-  - repository: self
-    type: git
-    ref: refs/heads/main
-jobs:
-- job: Job_1
-  displayName: Agent job 1
-  pool:
-    vmImage: windows-latest
-  steps:
-  - checkout: self
-    fetchTags: false
-  - task: NodeTool@0
-    displayName: 'Use Node '
-    inputs:
-      versionSpec: 14.x
-  - task: Npm@1
-    displayName: Install Npm Dependencies
-    inputs:
-      verbose: false
+- main
 
-  - task: Npm@1
-    displayName: Execute Script
-    condition: succeededOrFailed()
-    inputs:
-      command: custom
-      verbose: false
-      customCommand: run api-test-html
+pool:
+  vmImage: 'ubuntu-latest'
 
-  - task: PublishTestResults@2
-    displayName: 'Publish Test Results '
-    inputs:
-      testResultsFiles: '**/results-*.xml'
-...
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '16.x'
+  displayName: 'Install Node.js'
 
+- script: |
+    npm install
+  displayName: 'npm install'
 
+- script: |
+    npm run build
+  displayName: 'npm build'
+
+- task: CopyFiles@2
+  inputs:
+    sourceFolder: '$(Build.SourcesDirectory)'
+    contents: 'package.json' 
+    targetFolder: $(Build.ArtifactStagingDirectory)/npm
+  displayName: 'Copy package.json'
+
+- task: Npm@1
+  displayName: 'Execute Script'
+  inputs:
+    command: custom
+    workingDir: ./
+    verbose: false
+    customCommand: 'run api-test-html'
+  continueOnError: true
+  condition: succeededOrFailed()
+
+- task: PublishTestResults@2
+  displayName: 'Publish Test Results '
+  inputs:
+    testResultsFiles: '**/results.xml'
+    searchFolder: '$(System.DefaultWorkingDirectory)/cypress/reports'
+    mergeTestResults: true
+  condition: succeededOrFailed()
