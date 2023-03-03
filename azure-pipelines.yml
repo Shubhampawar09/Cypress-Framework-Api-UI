@@ -20,7 +20,7 @@ steps:
   displayName: 'npm install@9.5.0'
 - task: CmdLine@2
   inputs:
-    script: 'run api-test-html'
+    script: 'npm run api-test-html'
 
 - task: Npm@1
   displayName: 'Execute Script'
