@@ -23,8 +23,8 @@ steps:
   displayName: 'Execute Script'
   inputs:
     command: custom
-    workingDir: ./
-    verbose: false
+    workingDir: '$(System.DefaultWorkingDirectory)'
+    verbose: true
     customCommand: 'run api-test-html'
   continueOnError: true
   condition: succeededOrFailed()
