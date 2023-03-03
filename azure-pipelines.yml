@@ -20,7 +20,7 @@ steps:
   displayName: 'npm install@9.5.0'
 - task: CmdLine@2
   inputs:
-    script: 'docker build -t spendkey_cypress .'
+    script: 'docker build -t spendkey-cypress .'
   displayName: 'Build docker'
 
 - task: CmdLine@2
