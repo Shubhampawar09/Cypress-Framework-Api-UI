@@ -3,7 +3,7 @@ services:
   # this container will run Cypress test using built-in Electron browser
   api-test:
     image: "spendkey-cypress"
-    command: "api-test-html"
+    command: "report"
     volumes:
       - ./cypress/videos:/cypress-docker/cypress/videos
       - ./cypress/reports:/cypress-docker/cypress/reports
