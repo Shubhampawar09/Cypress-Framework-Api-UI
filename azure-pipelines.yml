@@ -36,4 +36,5 @@ steps:
     testResultsFiles: '**/results.xml'
     searchFolder: '$(System.DefaultWorkingDirectory)/cypress/reports'
     mergeTestResults: true
+    failTaskOnFailedTests: true
   condition: succeededOrFailed()
