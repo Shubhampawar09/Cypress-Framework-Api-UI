@@ -29,19 +29,6 @@ jobs:
     inputs:
       verbose: false
 
-  - task: Docker@2
-    inputs:
-      command: 'build'
-      Dockerfile: '**/dockerfile'
-  - script: |
-      docker build -t spendkey_cypress .
-
-  - task: DockerCompose@0
-    inputs:
-      containerregistrytype: 'Azure Container Registry'
-      dockerComposeFile: '**/docker-compose.yml'
-      action: 'Run a Docker Compose command'
-      dockerComposeCommand: 'docker-compose run api-test'
   - task: Npm@1
     displayName: Execute Script
     condition: succeededOrFailed()
