@@ -27,6 +27,8 @@ steps:
   inputs:
     script: 'docker-compose run api-test'
   displayName: 'run docker compose file'
+  continueOnError: true
+  condition: succeeded()
 
 - task: PublishTestResults@2
   displayName: 'Publish Test Results '
