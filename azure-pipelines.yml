@@ -29,8 +29,6 @@ steps:
   displayName: 'run docker compose file'
   continueOnError: true
   condition: succeeded()
-    echo "##vso[task.logissue type=error]Something went very wrong."
-    exit 1
 
 - task: PublishTestResults@2
   displayName: 'Publish Test Results '
