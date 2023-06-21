@@ -25,7 +25,7 @@ steps:
 
 - task: CmdLine@2
   inputs:
-    script: 'docker-compose run api-test'
+    script: 'docker-compose run ui-test'
   displayName: 'run docker compose file'
   continueOnError: true
   condition: succeeded()
