@@ -25,7 +25,7 @@ steps:
 
 - task: CmdLine@2
   inputs:
-    script: 'npx cypress run --spec ./cypress/e2e/uiTest/login-tests.cy.js'
+    script: 'docker-compose run ui-test'
   displayName: 'run docker compose file'
   continueOnError: true
   condition: succeeded()
