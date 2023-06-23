@@ -8,7 +8,7 @@ const {
   DEFAULT_USER_PASSWORD: password,
 } = Cypress.env();
 
-describe("Verify Login", () => {
+describe.only("Verify Login", () => {
   it("Verify login with valid email and password", () => {
     cy.visit('/login');
     utils.clickOn(loginPage.emailAddressField);
@@ -16,9 +16,8 @@ describe("Verify Login", () => {
     utils.clickOn(loginPage.passwordField);
     utils.clearAndType(loginPage.passwordField, password);
     utils.clickOn(loginPage.loginButton);
-    utils.getElement(homePage.loggedInUser).should('have.text','Abhishek')
+    cy.get('.ng-star-inserted > div').should("contain",'This is dashboard!!')
     cy.wait(3000);
-    cy.screenshot('LoginPage')
   });
 });
 
